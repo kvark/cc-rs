@@ -2169,6 +2169,11 @@ impl Build {
 
         let mut parts = tool.split_whitespace();
         let maybe_wrapper = match parts.next() {
+            // sometimes we get the starting " " in the path
+            Some("") => match parts.next() {
+                Some(s) => s,
+                None => return None,
+            },
             Some(s) => s,
             None => return None,
         };
